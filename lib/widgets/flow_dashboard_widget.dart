@@ -115,16 +115,26 @@ class _CommonWidgetState extends State<CommonWidget> {
           const SizedBox(height: 16),
           TextButton(
             onPressed: () async {
-              context.push('/loader');
+              context.showLoader();
               await Future.delayed(const Duration(seconds: 3));
 
               if (!mounted) return;
-              context.pop();
+              context.hideLoader();
             },
             child: const Text('Load...'),
           ),
         ],
       ),
     );
+  }
+}
+
+extension LoaderBuildContextExt on BuildContext {
+  showLoader() => push('/loader');
+
+  hideLoader() {
+    if(canPop() && GoRouter.of(this).location == '/loader') {
+      pop();
+    }
   }
 }
