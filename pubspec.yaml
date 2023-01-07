@@ -1,0 +1,28 @@
+name: shell_go_router
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  go_router: ^6.0.1
+  flutter_bloc: ^8.1.1
+  json_annotation: ^4.7.0
+  freezed_annotation: ^2.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+  freezed: ^2.3.2
+  build_runner: ^2.3.3
+  json_serializable: ^6.5.4
+
+flutter:
+  uses-material-design: true
