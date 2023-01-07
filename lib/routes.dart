@@ -55,14 +55,22 @@ GoRouter _getRouter(BuildContext context) {
         routes: [
           GoRoute(
             path: '/home',
-            builder: (BuildContext context, GoRouterState state) {
-              return const CommonWidget();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return CustomTransitionPage(
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) => child,
+                child: const CommonWidget(),
+              );
             },
           ),
           GoRoute(
               path: '/offerte',
-              builder: (BuildContext context, GoRouterState state) {
-                return const OffersWidget();
+              pageBuilder: (BuildContext context, GoRouterState state) {
+                return CustomTransitionPage(
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) => child,
+                  child: const OffersWidget(),
+                );
               },
               routes: [
                 GoRoute(
@@ -74,8 +82,12 @@ GoRouter _getRouter(BuildContext context) {
               ]),
           GoRoute(
             path: '/news',
-            builder: (BuildContext context, GoRouterState state) {
-              return const CommonWidget();
+            pageBuilder: (BuildContext context, GoRouterState state) {
+              return CustomTransitionPage(
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) => child,
+                child: const CommonWidget(),
+              );
             },
           ),
         ],

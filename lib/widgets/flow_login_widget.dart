@@ -14,7 +14,7 @@ class FlowLoginWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => FlowLoginCubit(const FlowLoginState()),
-      child: Scaffold(body: child),
+      child: SafeArea(child: Scaffold(body: child)),
     );
   }
 }
