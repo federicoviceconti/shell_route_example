@@ -1,9 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../cubit.dart';
-import '../main.dart';
 import '../state.dart';
 
 class FlowDashboardWidget extends StatelessWidget {
@@ -54,12 +55,12 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Offerte',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.school),
             label: 'News',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Offerte',
           ),
         ],
         selectedItemColor: Colors.amber[800],
@@ -133,8 +134,59 @@ extension LoaderBuildContextExt on BuildContext {
   showLoader() => push('/loader');
 
   hideLoader() {
-    if(canPop() && GoRouter.of(this).location == '/loader') {
+    if (canPop() && GoRouter.of(this).location == '/loader') {
       pop();
     }
+  }
+}
+
+class OffersWidget extends StatefulWidget {
+  const OffersWidget({super.key});
+
+  @override
+  State<OffersWidget> createState() => _OffersWidgetState();
+}
+
+class _OffersWidgetState extends State<OffersWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Text(
+            context.read<FlowDashboardCubit>().state.label,
+          ),
+          const SizedBox(height: 16),
+          TextButton(
+            onPressed: () async {
+              context.showLoader();
+              await Future.delayed(const Duration(seconds: 3));
+
+              if (!mounted) return;
+              context.hideLoader();
+
+              context.push('/offerte/${Random().nextInt(20)}');
+            },
+            child: const Text('Load offer...'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class OfferDetailWidget extends StatelessWidget {
+  final String id;
+
+  const OfferDetailWidget({super.key, required this.id});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 16),
+        Text('Offerta: $id'),
+      ],
+    );
   }
 }

@@ -10,6 +10,7 @@ final GlobalKey<NavigatorState> _shellDashboardNavigatorKey =
 
 GoRouter _getRouter(BuildContext context) {
   final GoRouter router = GoRouter(
+    debugLogDiagnostics: kDebugMode,
     navigatorKey: rootNavigatorKey,
     refreshListenable: GoRouterRefreshStream(context.watch<AppCubit>().stream),
     initialLocation: '/username',
@@ -20,7 +21,8 @@ GoRouter _getRouter(BuildContext context) {
         pageBuilder: (context, state) {
           return CustomTransitionPage(
             opaque: false,
-            transitionsBuilder: (context, animation, secondaryAnimation, child) => child,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) => child,
             child: const LoaderWidget(),
           );
         },
@@ -58,11 +60,18 @@ GoRouter _getRouter(BuildContext context) {
             },
           ),
           GoRoute(
-            path: '/offerte',
-            builder: (BuildContext context, GoRouterState state) {
-              return const CommonWidget();
-            },
-          ),
+              path: '/offerte',
+              builder: (BuildContext context, GoRouterState state) {
+                return const OffersWidget();
+              },
+              routes: [
+                GoRoute(
+                  path: ':id',
+                  builder: (BuildContext context, GoRouterState state) {
+                    return OfferDetailWidget(id: state.params['id']!);
+                  },
+                )
+              ]),
           GoRoute(
             path: '/news',
             builder: (BuildContext context, GoRouterState state) {
