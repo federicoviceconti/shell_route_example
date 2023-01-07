@@ -4,7 +4,9 @@ part 'state.freezed.dart';
 
 @freezed
 class AppState with _$AppState {
-  const factory AppState() = _AppState;
+  const factory AppState({
+    @Default(false) final bool loggedIn,
+  }) = _AppState;
 }
 
 @freezed

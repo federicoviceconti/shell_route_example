@@ -23,4 +23,8 @@ class FlowDashboardCubit extends Cubit<FlowDashboardState> {
 
 class AppCubit extends Cubit<AppState> {
   AppCubit(super.initialState);
+
+  void setLoggedIn(bool logged) {
+    emit(state.copyWith(loggedIn: logged));
+  }
 }

@@ -36,13 +36,13 @@ GoRouter _getRouter(BuildContext context) {
           GoRoute(
             path: '/username',
             builder: (BuildContext context, GoRouterState state) {
-              return const InsertUsernameWidget();
+              return InsertUsernameWidget();
             },
           ),
           GoRoute(
             path: '/password',
             builder: (BuildContext context, GoRouterState state) {
-              return const InsertPasswordWidget();
+              return InsertPasswordWidget();
             },
           ),
         ],

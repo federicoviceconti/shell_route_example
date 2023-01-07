@@ -15,12 +15,20 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$AppState {}
+mixin _$AppState {
+  bool get loggedIn => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AppStateCopyWith<AppState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
 
 /// @nodoc
 abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res, AppState>;
+  @useResult
+  $Res call({bool loggedIn});
 }
 
 /// @nodoc
@@ -32,13 +40,29 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? loggedIn = null,
+  }) {
+    return _then(_value.copyWith(
+      loggedIn: null == loggedIn
+          ? _value.loggedIn
+          : loggedIn // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$_AppStateCopyWith<$Res> {
+abstract class _$$_AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
   factory _$$_AppStateCopyWith(
           _$_AppState value, $Res Function(_$_AppState) then) =
       __$$_AppStateCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({bool loggedIn});
 }
 
 /// @nodoc
@@ -48,30 +72,63 @@ class __$$_AppStateCopyWithImpl<$Res>
   __$$_AppStateCopyWithImpl(
       _$_AppState _value, $Res Function(_$_AppState) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? loggedIn = null,
+  }) {
+    return _then(_$_AppState(
+      loggedIn: null == loggedIn
+          ? _value.loggedIn
+          : loggedIn // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_AppState implements _AppState {
-  const _$_AppState();
+  const _$_AppState({this.loggedIn = false});
+
+  @override
+  @JsonKey()
+  final bool loggedIn;
 
   @override
   String toString() {
-    return 'AppState()';
+    return 'AppState(loggedIn: $loggedIn)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_AppState);
+        (other.runtimeType == runtimeType &&
+            other is _$_AppState &&
+            (identical(other.loggedIn, loggedIn) ||
+                other.loggedIn == loggedIn));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, loggedIn);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AppStateCopyWith<_$_AppState> get copyWith =>
+      __$$_AppStateCopyWithImpl<_$_AppState>(this, _$identity);
 }
 
 abstract class _AppState implements AppState {
-  const factory _AppState() = _$_AppState;
+  const factory _AppState({final bool loggedIn}) = _$_AppState;
+
+  @override
+  bool get loggedIn;
+  @override
+  @JsonKey(ignore: true)
+  _$$_AppStateCopyWith<_$_AppState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
