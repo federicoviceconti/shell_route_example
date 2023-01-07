@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../cubit.dart';
+import '../main.dart';
 import '../state.dart';
 
 class FlowDashboardWidget extends StatelessWidget {
@@ -93,15 +94,37 @@ class _DashboardWidgetState extends State<DashboardWidget> {
   }
 }
 
-class CommonWidget extends StatelessWidget {
+class CommonWidget extends StatefulWidget {
   const CommonWidget({
     super.key,
   });
 
   @override
+  State<CommonWidget> createState() => _CommonWidgetState();
+}
+
+class _CommonWidgetState extends State<CommonWidget> {
+  @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(context.read<FlowDashboardCubit>().state.label),
+      child: Column(
+        children: [
+          Text(
+            context.read<FlowDashboardCubit>().state.label,
+          ),
+          const SizedBox(height: 16),
+          TextButton(
+            onPressed: () async {
+              context.push('/loader');
+              await Future.delayed(const Duration(seconds: 3));
+
+              if (!mounted) return;
+              context.pop();
+            },
+            child: const Text('Load...'),
+          ),
+        ],
+      ),
     );
   }
 }

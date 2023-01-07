@@ -1,6 +1,6 @@
 part of 'main.dart';
 
-final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
 
 final GlobalKey<NavigatorState> _shellLoginNavigatorKey =
     GlobalKey<NavigatorState>();
@@ -8,55 +8,71 @@ final GlobalKey<NavigatorState> _shellLoginNavigatorKey =
 final GlobalKey<NavigatorState> _shellDashboardNavigatorKey =
     GlobalKey<NavigatorState>();
 
-final GoRouter _router = GoRouter(
-  navigatorKey: _rootNavigatorKey,
-  initialLocation: '/',
-  routes: [
-    ShellRoute(
-      navigatorKey: _shellLoginNavigatorKey,
-      builder: (context, state, child) {
-        return FlowLoginWidget(child: child);
-      },
-      routes: [
-        GoRoute(
-          path: '/',
-          builder: (BuildContext context, GoRouterState state) {
-            return const InsertUsernameWidget();
-          },
-        ),
-        GoRoute(
-          path: '/password',
-          builder: (BuildContext context, GoRouterState state) {
-            return const InsertPasswordWidget();
-          },
-        ),
-      ],
-    ),
-    ShellRoute(
-      navigatorKey: _shellDashboardNavigatorKey,
-      builder: (context, state, child) {
-        return FlowDashboardWidget(child: DashboardWidget(child: child));
-      },
-      routes: [
-        GoRoute(
-          path: '/home',
-          builder: (BuildContext context, GoRouterState state) {
-            return const CommonWidget();
-          },
-        ),
-        GoRoute(
-          path: '/offerte',
-          builder: (BuildContext context, GoRouterState state) {
-            return const CommonWidget();
-          },
-        ),
-        GoRoute(
-          path: '/news',
-          builder: (BuildContext context, GoRouterState state) {
-            return const CommonWidget();
-          },
-        ),
-      ],
-    ),
-  ],
-);
+GoRouter _getRouter(BuildContext context) {
+  final GoRouter router = GoRouter(
+    navigatorKey: rootNavigatorKey,
+    refreshListenable: GoRouterRefreshStream(context.watch<AppCubit>().stream),
+    initialLocation: '/username',
+    routes: [
+      GoRoute(
+        parentNavigatorKey: rootNavigatorKey,
+        path: '/loader',
+        pageBuilder: (context, state) {
+          return CustomTransitionPage(
+            opaque: false,
+            transitionsBuilder: (context, animation, secondaryAnimation, child) => child,
+            child: const LoaderWidget(),
+          );
+        },
+      ),
+      ShellRoute(
+        navigatorKey: _shellLoginNavigatorKey,
+        builder: (context, state, child) {
+          return FlowLoginWidget(child: child);
+        },
+        routes: [
+          GoRoute(
+            path: '/username',
+            builder: (BuildContext context, GoRouterState state) {
+              return const InsertUsernameWidget();
+            },
+          ),
+          GoRoute(
+            path: '/password',
+            builder: (BuildContext context, GoRouterState state) {
+              return const InsertPasswordWidget();
+            },
+          ),
+        ],
+      ),
+      ShellRoute(
+        navigatorKey: _shellDashboardNavigatorKey,
+        builder: (context, state, child) {
+          return FlowDashboardWidget(child: DashboardWidget(child: child));
+        },
+        routes: [
+          GoRoute(
+            path: '/home',
+            builder: (BuildContext context, GoRouterState state) {
+              return const CommonWidget();
+            },
+          ),
+          GoRoute(
+            path: '/offerte',
+            builder: (BuildContext context, GoRouterState state) {
+              return const CommonWidget();
+            },
+          ),
+          GoRoute(
+            path: '/news',
+            builder: (BuildContext context, GoRouterState state) {
+              return const CommonWidget();
+            },
+          ),
+        ],
+      ),
+    ],
+  );
+
+  return router;
+}

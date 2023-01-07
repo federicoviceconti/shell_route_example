@@ -15,6 +15,123 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
+mixin _$AppState {
+  bool get isLoading => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $AppStateCopyWith<AppState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AppStateCopyWith<$Res> {
+  factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
+      _$AppStateCopyWithImpl<$Res, AppState>;
+  @useResult
+  $Res call({bool isLoading});
+}
+
+/// @nodoc
+class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
+    implements $AppStateCopyWith<$Res> {
+  _$AppStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoading = null,
+  }) {
+    return _then(_value.copyWith(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_AppStateCopyWith<$Res> implements $AppStateCopyWith<$Res> {
+  factory _$$_AppStateCopyWith(
+          _$_AppState value, $Res Function(_$_AppState) then) =
+      __$$_AppStateCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({bool isLoading});
+}
+
+/// @nodoc
+class __$$_AppStateCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$_AppState>
+    implements _$$_AppStateCopyWith<$Res> {
+  __$$_AppStateCopyWithImpl(
+      _$_AppState _value, $Res Function(_$_AppState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isLoading = null,
+  }) {
+    return _then(_$_AppState(
+      isLoading: null == isLoading
+          ? _value.isLoading
+          : isLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_AppState implements _AppState {
+  const _$_AppState({this.isLoading = false});
+
+  @override
+  @JsonKey()
+  final bool isLoading;
+
+  @override
+  String toString() {
+    return 'AppState(isLoading: $isLoading)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_AppState &&
+            (identical(other.isLoading, isLoading) ||
+                other.isLoading == isLoading));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, isLoading);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_AppStateCopyWith<_$_AppState> get copyWith =>
+      __$$_AppStateCopyWithImpl<_$_AppState>(this, _$identity);
+}
+
+abstract class _AppState implements AppState {
+  const factory _AppState({final bool isLoading}) = _$_AppState;
+
+  @override
+  bool get isLoading;
+  @override
+  @JsonKey(ignore: true)
+  _$$_AppStateCopyWith<_$_AppState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$FlowLoginState {
   String? get username => throw _privateConstructorUsedError;
   String? get password => throw _privateConstructorUsedError;

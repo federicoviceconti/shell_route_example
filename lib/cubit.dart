@@ -20,3 +20,11 @@ class FlowDashboardCubit extends Cubit<FlowDashboardState> {
     emit(state.copyWith(label: value));
   }
 }
+
+class AppCubit extends Cubit<AppState> {
+  AppCubit(super.initialState);
+
+  showLoader() => emit(state.copyWith(isLoading: true));
+
+  hideLoader() => emit(state.copyWith(isLoading: false));
+}
