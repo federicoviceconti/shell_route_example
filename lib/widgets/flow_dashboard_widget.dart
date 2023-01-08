@@ -182,11 +182,15 @@ class OfferDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 16),
-        Text('Offerta: $id'),
-      ],
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            Text('Offerta: $id'),
+          ],
+        ),
+      ),
     );
   }
 }

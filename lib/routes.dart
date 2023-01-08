@@ -28,7 +28,7 @@ GoRouter _getRouter(BuildContext context) {
         },
       ),
       ShellRoute(
-        navigatorKey: _shellLoginNavigatorKey,
+        navigatorKey: _shellLoginNavigatorKey,        
         builder: (context, state, child) {
           return FlowLoginWidget(child: child);
         },
@@ -74,6 +74,7 @@ GoRouter _getRouter(BuildContext context) {
               },
               routes: [
                 GoRoute(
+                  parentNavigatorKey: rootNavigatorKey,
                   path: ':id',
                   builder: (BuildContext context, GoRouterState state) {
                     return OfferDetailWidget(id: state.params['id']!);
