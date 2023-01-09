@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
 
   go_router: ^6.0.1
   flutter_bloc: ^8.1.1

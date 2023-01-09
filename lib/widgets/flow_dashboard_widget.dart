@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../main.dart';
 import '../cubit.dart';
 import '../state.dart';
 
@@ -43,7 +44,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
         title: const Text('Dashboard'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go('/'),
+        onPressed: () => context.go(usernamePath),
         child: const Icon(Icons.login),
       ),
       body: widget.child,
@@ -60,7 +61,7 @@ class _DashboardWidgetState extends State<DashboardWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Offerte',
+            label: 'Offers',
           ),
         ],
         selectedItemColor: Colors.amber[800],
@@ -75,17 +76,17 @@ class _DashboardWidgetState extends State<DashboardWidget> {
             case 0:
               context
                 ..read<FlowDashboardCubit>().onTapItem('home')
-                ..go('/home');
+                ..go(homePath);
               break;
             case 1:
               context
                 ..read<FlowDashboardCubit>().onTapItem('news')
-                ..go('/news');
+                ..go(newsPath);
               break;
             case 2:
               context
-                ..read<FlowDashboardCubit>().onTapItem('offerte')
-                ..go('/offerte');
+                ..read<FlowDashboardCubit>().onTapItem('offers')
+                ..go(offersPath);
               break;
             default:
           }
@@ -131,10 +132,10 @@ class _CommonWidgetState extends State<CommonWidget> {
 }
 
 extension LoaderBuildContextExt on BuildContext {
-  showLoader() => push('/loader');
+  showLoader() => push(loaderPath);
 
   hideLoader() {
-    if (canPop() && GoRouter.of(this).location == '/loader') {
+    if (canPop() && GoRouter.of(this).location == loaderPath) {
       pop();
     }
   }
@@ -165,7 +166,7 @@ class _OffersWidgetState extends State<OffersWidget> {
               if (!mounted) return;
               context.hideLoader();
 
-              context.push('/offerte/${Random().nextInt(20)}');
+              context.push('$offersPath/${Random().nextInt(20)}');
             },
             child: const Text('Load offer...'),
           ),
@@ -187,7 +188,7 @@ class OfferDetailWidget extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 16),
-            Text('Offerta: $id'),
+            Text('Offer id: $id'),
           ],
         ),
       ),

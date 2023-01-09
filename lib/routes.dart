@@ -8,16 +8,24 @@ final GlobalKey<NavigatorState> _shellLoginNavigatorKey =
 final GlobalKey<NavigatorState> _shellDashboardNavigatorKey =
     GlobalKey<NavigatorState>();
 
+const usernamePath = '/username';
+const loaderPath = '/loader';
+const passwordPath = '/password';
+const homePath = '/home';
+const offersPath = '/offers';
+const offerDetailPath = ':id';
+const newsPath = '/news';
+
 GoRouter _getRouter(BuildContext context) {
   final GoRouter router = GoRouter(
     debugLogDiagnostics: kDebugMode,
     navigatorKey: rootNavigatorKey,
     refreshListenable: GoRouterRefreshStream(context.watch<AppCubit>().stream),
-    initialLocation: '/username',
+    initialLocation: usernamePath,
     routes: [
       GoRoute(
         parentNavigatorKey: rootNavigatorKey,
-        path: '/loader',
+        path: loaderPath,
         pageBuilder: (context, state) {
           return CustomTransitionPage(
             opaque: false,
@@ -28,19 +36,19 @@ GoRouter _getRouter(BuildContext context) {
         },
       ),
       ShellRoute(
-        navigatorKey: _shellLoginNavigatorKey,        
+        navigatorKey: _shellLoginNavigatorKey,
         builder: (context, state, child) {
           return FlowLoginWidget(child: child);
         },
         routes: [
           GoRoute(
-            path: '/username',
+            path: usernamePath,
             builder: (BuildContext context, GoRouterState state) {
               return InsertUsernameWidget();
             },
           ),
           GoRoute(
-            path: '/password',
+            path: passwordPath,
             builder: (BuildContext context, GoRouterState state) {
               return InsertPasswordWidget();
             },
@@ -54,7 +62,7 @@ GoRouter _getRouter(BuildContext context) {
         },
         routes: [
           GoRoute(
-            path: '/home',
+            path: homePath,
             pageBuilder: (BuildContext context, GoRouterState state) {
               return CustomTransitionPage(
                 transitionsBuilder:
@@ -64,7 +72,7 @@ GoRouter _getRouter(BuildContext context) {
             },
           ),
           GoRoute(
-              path: '/offerte',
+              path: offersPath,
               pageBuilder: (BuildContext context, GoRouterState state) {
                 return CustomTransitionPage(
                   transitionsBuilder:
@@ -75,14 +83,14 @@ GoRouter _getRouter(BuildContext context) {
               routes: [
                 GoRoute(
                   parentNavigatorKey: rootNavigatorKey,
-                  path: ':id',
+                  path: offerDetailPath,
                   builder: (BuildContext context, GoRouterState state) {
                     return OfferDetailWidget(id: state.params['id']!);
                   },
                 )
               ]),
           GoRoute(
-            path: '/news',
+            path: newsPath,
             pageBuilder: (BuildContext context, GoRouterState state) {
               return CustomTransitionPage(
                 transitionsBuilder:

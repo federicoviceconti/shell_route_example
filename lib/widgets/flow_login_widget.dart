@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../cubit.dart';
+import '../main.dart';
 import '../state.dart';
 
 class FlowLoginWidget extends StatelessWidget {
@@ -39,7 +40,7 @@ class InsertUsernameWidget extends StatelessWidget {
             const SizedBox(height: 16),
             TextButton(
               onPressed: () {
-                if (_key.currentState!.validate()) context.push('/password');
+                if (_key.currentState!.validate()) context.push(passwordPath);
               },
               child: const Text("Continue"),
             ),
@@ -71,7 +72,7 @@ class InsertPasswordWidget extends StatelessWidget {
             const SizedBox(height: 16),
             TextButton(
               onPressed: () {
-                if (_key.currentState!.validate()) context.go('/home');
+                if (_key.currentState!.validate()) context.go(homePath);
               },
               child: const Text("Continue"),
             ),
