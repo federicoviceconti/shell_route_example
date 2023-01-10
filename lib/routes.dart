@@ -9,19 +9,18 @@ const offerDetailInsertDataPath = 'insert_data';
 const offerDetailDataRecapPath = 'recap_data';
 const newsPath = '/news';
 
+final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>();
+
+final GlobalKey<NavigatorState> shellLoginNavigatorKey =
+    GlobalKey<NavigatorState>();
+
+final GlobalKey<NavigatorState> shellDashboardNavigatorKey =
+    GlobalKey<NavigatorState>();
+
+final GlobalKey<NavigatorState> shellActivationFlowNavigatorKey =
+    GlobalKey<NavigatorState>();
+
 GoRouter _getRouter(BuildContext context) {
-  final GlobalKey<NavigatorState> rootNavigatorKey =
-      GlobalKey<NavigatorState>();
-
-  final GlobalKey<NavigatorState> shellLoginNavigatorKey =
-      GlobalKey<NavigatorState>();
-
-  final GlobalKey<NavigatorState> shellDashboardNavigatorKey =
-      GlobalKey<NavigatorState>();
-
-  final GlobalKey<NavigatorState> shellActivationFlowNavigatorKey =
-      GlobalKey<NavigatorState>();
-
   final GoRouter router = GoRouter(
     debugLogDiagnostics: kDebugMode,
     navigatorKey: rootNavigatorKey,
@@ -97,7 +96,7 @@ GoRouter _getRouter(BuildContext context) {
                           path: offerDetailInsertDataPath,
                           builder: (BuildContext context, GoRouterState state) {
                             return OfferDetailInsertDataWidget(
-                              id: state.params['id']!,
+                              id: state.params['id'] ?? '-1',
                             );
                           },
                         ),
@@ -105,14 +104,17 @@ GoRouter _getRouter(BuildContext context) {
                           path: offerDetailDataRecapPath,
                           builder: (BuildContext context, GoRouterState state) {
                             return OfferDetailRecapWidget(
-                              id: state.params['id']!,
+                              id: state.params['id'] ?? '-1',
                             );
                           },
                           redirect: (context, state) {
+                            final ctx =
+                                shellActivationFlowNavigatorKey.currentContext;
+
+                            if (ctx == null) return homePath;
+
                             final stateActivate =
-                                shellActivationFlowNavigatorKey.currentContext!
-                                    .read<FlowActivateOfferCubit>()
-                                    .state;
+                                ctx.read<FlowActivateOfferCubit>().state;
 
                             if (stateActivate.email.isEmpty ||
                                 stateActivate.phoneNumber.isEmpty) {
@@ -140,6 +142,11 @@ GoRouter _getRouter(BuildContext context) {
         ],
       ),
     ],
+    errorBuilder: (context, state) {
+      return const Scaffold(
+        body: Text("Error!"),
+      );
+    },
   );
 
   return router;
