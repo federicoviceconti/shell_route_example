@@ -15,7 +15,7 @@ class OffersWidget extends StatefulWidget {
   State<OffersWidget> createState() => _OffersWidgetState();
 }
 
-class _OffersWidgetState extends State<OffersWidget> with LoaderMixin {
+class _OffersWidgetState extends State<OffersWidget> {
   final int _offerId = Random().nextInt(20);
 
   @override
@@ -35,11 +35,11 @@ class _OffersWidgetState extends State<OffersWidget> with LoaderMixin {
           const SizedBox(height: 16),
           TextButton(
             onPressed: () async {
-              showLoader();
+              context.showLoader();
               await Future.delayed(const Duration(seconds: 3));
 
               if (!mounted) return;
-              hideLoader();
+              context.hideLoader();
 
               context.go('$offersPath/$_offerId');
             },
@@ -47,12 +47,12 @@ class _OffersWidgetState extends State<OffersWidget> with LoaderMixin {
           ),
           TextButton(
             onPressed: () async {
-              showLoader();
-              showLoader();
+              context.showLoader();
+              context.showLoader();
               await Future.delayed(const Duration(seconds: 3));
 
               if (!mounted) return;
-              hideLoader();
+              context.hideLoader();
             },
             child: const Text('Load multiple...'),
           ),

@@ -121,7 +121,7 @@ class CommonWidget extends StatefulWidget {
   State<CommonWidget> createState() => _CommonWidgetState();
 }
 
-class _CommonWidgetState extends State<CommonWidget> with LoaderMixin {
+class _CommonWidgetState extends State<CommonWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -133,13 +133,13 @@ class _CommonWidgetState extends State<CommonWidget> with LoaderMixin {
           const SizedBox(height: 16),
           TextButton(
             onPressed: () async {
-              showLoader();
+              context.showLoader();
               await Future.delayed(const Duration(seconds: 3));
 
               if (!mounted) return;
-              hideLoader();
-              hideLoader();
-              hideLoader();
+              context.hideLoader();
+              context.hideLoader();
+              context.hideLoader();
             },
             child: const Text('Load...'),
           ),

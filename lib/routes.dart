@@ -43,7 +43,7 @@ GoRouter _getRouter(BuildContext context) {
           GoRoute(
             path: passwordPath,
             builder: (BuildContext context, GoRouterState state) {
-              return InsertPasswordWidget();
+              return const InsertPasswordWidget();
             },
           ),
         ],
@@ -109,10 +109,10 @@ GoRouter _getRouter(BuildContext context) {
                             );
                           },
                           redirect: (context, state) {
-                            final stateActivate = shellActivationFlowNavigatorKey
-                                .currentContext!
-                                .read<FlowActivateOfferCubit>()
-                                .state;
+                            final stateActivate =
+                                shellActivationFlowNavigatorKey.currentContext!
+                                    .read<FlowActivateOfferCubit>()
+                                    .state;
 
                             if (stateActivate.email.isEmpty ||
                                 stateActivate.phoneNumber.isEmpty) {

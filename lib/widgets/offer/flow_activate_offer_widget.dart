@@ -80,8 +80,7 @@ class OfferDetailRecapWidget extends StatefulWidget {
   State<OfferDetailRecapWidget> createState() => _OfferDetailRecapWidgetState();
 }
 
-class _OfferDetailRecapWidgetState extends State<OfferDetailRecapWidget>
-    with LoaderMixin {
+class _OfferDetailRecapWidgetState extends State<OfferDetailRecapWidget> {
   @override
   Widget build(BuildContext context) {
     final state = context.read<FlowActivateOfferCubit>().state;
@@ -103,11 +102,12 @@ class _OfferDetailRecapWidgetState extends State<OfferDetailRecapWidget>
                 pageBuilder: (innerContext, animation, secondaryAnimation) {
                   return ConfirmOfferPopupWidget(
                     firstAction: () async {
-                      showLoader();
+                      context.showLoader();
                       await Future.delayed(const Duration(seconds: 1));
-                      hideLoader();
 
                       if (!mounted) return;
+                      context.hideLoader();
+                      
                       context.pop();
 
                       context

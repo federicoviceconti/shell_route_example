@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../widgets/loader_widget.dart';
 
-mixin LoaderMixin<T extends StatefulWidget> on State<T> {
-  Route? loader;
+extension LoaderExt on BuildContext {
+  static Route? loader;
 
   showLoader() {
     if(loader == null || !loader!.isCurrent) {
@@ -13,13 +13,13 @@ mixin LoaderMixin<T extends StatefulWidget> on State<T> {
             return const LoaderWidget();
           },
         );
-      Navigator.of(context, rootNavigator: true).push(loader!);
+      Navigator.of(this, rootNavigator: true).push(loader!);
     }
   }
 
   hideLoader() {
-    if (loader != null && Navigator.of(context, rootNavigator: true).canPop()) {
-      context.pop();
+    if (loader != null && Navigator.of(this, rootNavigator: true).canPop()) {
+      pop();
       loader = null;
     }
   }

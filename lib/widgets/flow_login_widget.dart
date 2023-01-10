@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shell_go_router/mixin/loader_mixin.dart';
 
 import '../cubit.dart';
 import '../main.dart';
@@ -51,10 +52,16 @@ class InsertUsernameWidget extends StatelessWidget {
   }
 }
 
-class InsertPasswordWidget extends StatelessWidget {
-  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+class InsertPasswordWidget extends StatefulWidget {
 
-  InsertPasswordWidget({super.key});
+  const InsertPasswordWidget({super.key});
+
+  @override
+  State<InsertPasswordWidget> createState() => _InsertPasswordWidgetState();
+}
+
+class _InsertPasswordWidgetState extends State<InsertPasswordWidget> {
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +78,15 @@ class InsertPasswordWidget extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             TextButton(
-              onPressed: () {
-                if (_key.currentState!.validate()) context.go(homePath);
+              onPressed: () async {
+                context.showLoader();
+                await Future.delayed(const Duration(seconds: 3));
+
+                if (!_key.currentState!.validate()) return;
+                
+                if(!mounted) return;
+
+                context.go(homePath);
               },
               child: const Text("Continue"),
             ),
