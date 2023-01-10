@@ -16,8 +16,20 @@ class FlowLoginCubit extends Cubit<FlowLoginState> {
 class FlowDashboardCubit extends Cubit<FlowDashboardState> {
   FlowDashboardCubit(super.initialState);
 
-  void onTapItem(String value) {
-    emit(state.copyWith(label: value));
+  void onTapItem(int value) {
+    emit(state.copyWith(index: value));
+  }
+}
+
+class FlowActivateOfferCubit extends Cubit<FlowActivateOfferState> {
+  FlowActivateOfferCubit(super.initialState);
+
+  void onPhoneNumberChange(String value) {
+    emit(state.copyWith(phoneNumber: value));
+  }
+
+  void onEmailChange(String value) {
+    emit(state.copyWith(email: value));
   }
 }
 

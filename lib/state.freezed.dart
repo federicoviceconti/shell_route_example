@@ -269,7 +269,7 @@ abstract class _FlowAState implements FlowLoginState {
 
 /// @nodoc
 mixin _$FlowDashboardState {
-  String get label => throw _privateConstructorUsedError;
+  int get index => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FlowDashboardStateCopyWith<FlowDashboardState> get copyWith =>
@@ -282,7 +282,7 @@ abstract class $FlowDashboardStateCopyWith<$Res> {
           FlowDashboardState value, $Res Function(FlowDashboardState) then) =
       _$FlowDashboardStateCopyWithImpl<$Res, FlowDashboardState>;
   @useResult
-  $Res call({String label});
+  $Res call({int index});
 }
 
 /// @nodoc
@@ -298,13 +298,13 @@ class _$FlowDashboardStateCopyWithImpl<$Res, $Val extends FlowDashboardState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? label = null,
+    Object? index = null,
   }) {
     return _then(_value.copyWith(
-      label: null == label
-          ? _value.label
-          : label // ignore: cast_nullable_to_non_nullable
-              as String,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -317,7 +317,7 @@ abstract class _$$_FlowDashboardStateCopyWith<$Res>
       __$$_FlowDashboardStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String label});
+  $Res call({int index});
 }
 
 /// @nodoc
@@ -331,13 +331,13 @@ class __$$_FlowDashboardStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? label = null,
+    Object? index = null,
   }) {
     return _then(_$_FlowDashboardState(
-      label: null == label
-          ? _value.label
-          : label // ignore: cast_nullable_to_non_nullable
-              as String,
+      index: null == index
+          ? _value.index
+          : index // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -345,15 +345,15 @@ class __$$_FlowDashboardStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_FlowDashboardState implements _FlowDashboardState {
-  const _$_FlowDashboardState({this.label = 'Value not initialized'});
+  const _$_FlowDashboardState({this.index = 0});
 
   @override
   @JsonKey()
-  final String label;
+  final int index;
 
   @override
   String toString() {
-    return 'FlowDashboardState(label: $label)';
+    return 'FlowDashboardState(index: $index)';
   }
 
   @override
@@ -361,11 +361,11 @@ class _$_FlowDashboardState implements _FlowDashboardState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FlowDashboardState &&
-            (identical(other.label, label) || other.label == label));
+            (identical(other.index, index) || other.index == index));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, label);
+  int get hashCode => Object.hash(runtimeType, index);
 
   @JsonKey(ignore: true)
   @override
@@ -376,13 +376,153 @@ class _$_FlowDashboardState implements _FlowDashboardState {
 }
 
 abstract class _FlowDashboardState implements FlowDashboardState {
-  const factory _FlowDashboardState({final String label}) =
-      _$_FlowDashboardState;
+  const factory _FlowDashboardState({final int index}) = _$_FlowDashboardState;
 
   @override
-  String get label;
+  int get index;
   @override
   @JsonKey(ignore: true)
   _$$_FlowDashboardStateCopyWith<_$_FlowDashboardState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$FlowActivateOfferState {
+  String get email => throw _privateConstructorUsedError;
+  String get phoneNumber => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $FlowActivateOfferStateCopyWith<FlowActivateOfferState> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $FlowActivateOfferStateCopyWith<$Res> {
+  factory $FlowActivateOfferStateCopyWith(FlowActivateOfferState value,
+          $Res Function(FlowActivateOfferState) then) =
+      _$FlowActivateOfferStateCopyWithImpl<$Res, FlowActivateOfferState>;
+  @useResult
+  $Res call({String email, String phoneNumber});
+}
+
+/// @nodoc
+class _$FlowActivateOfferStateCopyWithImpl<$Res,
+        $Val extends FlowActivateOfferState>
+    implements $FlowActivateOfferStateCopyWith<$Res> {
+  _$FlowActivateOfferStateCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? phoneNumber = null,
+  }) {
+    return _then(_value.copyWith(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_FlowActivateOfferStateCopyWith<$Res>
+    implements $FlowActivateOfferStateCopyWith<$Res> {
+  factory _$$_FlowActivateOfferStateCopyWith(_$_FlowActivateOfferState value,
+          $Res Function(_$_FlowActivateOfferState) then) =
+      __$$_FlowActivateOfferStateCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String email, String phoneNumber});
+}
+
+/// @nodoc
+class __$$_FlowActivateOfferStateCopyWithImpl<$Res>
+    extends _$FlowActivateOfferStateCopyWithImpl<$Res,
+        _$_FlowActivateOfferState>
+    implements _$$_FlowActivateOfferStateCopyWith<$Res> {
+  __$$_FlowActivateOfferStateCopyWithImpl(_$_FlowActivateOfferState _value,
+      $Res Function(_$_FlowActivateOfferState) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? phoneNumber = null,
+  }) {
+    return _then(_$_FlowActivateOfferState(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      phoneNumber: null == phoneNumber
+          ? _value.phoneNumber
+          : phoneNumber // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_FlowActivateOfferState implements _FlowActivateOfferState {
+  const _$_FlowActivateOfferState({this.email = '', this.phoneNumber = ''});
+
+  @override
+  @JsonKey()
+  final String email;
+  @override
+  @JsonKey()
+  final String phoneNumber;
+
+  @override
+  String toString() {
+    return 'FlowActivateOfferState(email: $email, phoneNumber: $phoneNumber)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_FlowActivateOfferState &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.phoneNumber, phoneNumber) ||
+                other.phoneNumber == phoneNumber));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, phoneNumber);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_FlowActivateOfferStateCopyWith<_$_FlowActivateOfferState> get copyWith =>
+      __$$_FlowActivateOfferStateCopyWithImpl<_$_FlowActivateOfferState>(
+          this, _$identity);
+}
+
+abstract class _FlowActivateOfferState implements FlowActivateOfferState {
+  const factory _FlowActivateOfferState(
+      {final String email,
+      final String phoneNumber}) = _$_FlowActivateOfferState;
+
+  @override
+  String get email;
+  @override
+  String get phoneNumber;
+  @override
+  @JsonKey(ignore: true)
+  _$$_FlowActivateOfferStateCopyWith<_$_FlowActivateOfferState> get copyWith =>
       throw _privateConstructorUsedError;
 }

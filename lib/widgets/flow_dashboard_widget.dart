@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../main.dart';
 import '../cubit.dart';
+import '../mixin/loader_mixin.dart';
 import '../state.dart';
 
 class FlowDashboardWidget extends StatelessWidget {
@@ -34,63 +35,78 @@ class DashboardWidget extends StatefulWidget {
   State<DashboardWidget> createState() => _DashboardWidgetState();
 }
 
-class _DashboardWidgetState extends State<DashboardWidget> {
-  int _index = 0;
+const homeIndex = 0;
+const newsIndex = 1;
+const offersIndex = 2;
 
+class _DashboardWidgetState extends State<DashboardWidget> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dashboard'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(usernamePath),
-        child: const Icon(Icons.login),
-      ),
-      body: widget.child,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _index,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'News',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Offers',
-          ),
-        ],
-        selectedItemColor: Colors.amber[800],
-        onTap: (value) {
-          if (value == _index) return;
+    final cubit = context.watch<FlowDashboardCubit>();
+    return WillPopScope(
+      onWillPop: () async {
+        final router = GoRouter.of(context);
+        final index = context.read<FlowDashboardCubit>().state.index;
 
-          setState(() {
-            _index = value;
-          });
+        if (index != homeIndex && !router.canPop()) {
+          context
+            ..read<FlowDashboardCubit>().onTapItem(homeIndex)
+            ..go(homePath);
+          return false;
+        } else {
+          return true;
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Dashboard'),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => context.go(usernamePath),
+          child: const Icon(Icons.login),
+        ),
+        body: widget.child,
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: cubit.state.index,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school),
+              label: 'News',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.business),
+              label: 'Offers',
+            ),
+          ],
+          selectedItemColor: Colors.amber[800],
+          onTap: (value) {
+            //final index = context.read<FlowDashboardCubit>().state.index;
+            //if (value == index) return;
 
-          switch (value) {
-            case 0:
-              context
-                ..read<FlowDashboardCubit>().onTapItem('home')
-                ..go(homePath);
-              break;
-            case 1:
-              context
-                ..read<FlowDashboardCubit>().onTapItem('news')
-                ..go(newsPath);
-              break;
-            case 2:
-              context
-                ..read<FlowDashboardCubit>().onTapItem('offers')
-                ..go(offersPath);
-              break;
-            default:
-          }
-        },
+            switch (value) {
+              case homeIndex:
+                context
+                  ..read<FlowDashboardCubit>().onTapItem(homeIndex)
+                  ..go(homePath);
+                break;
+              case newsIndex:
+                context
+                  ..read<FlowDashboardCubit>().onTapItem(newsIndex)
+                  ..go(newsPath);
+                break;
+              case offersIndex:
+                context
+                  ..read<FlowDashboardCubit>().onTapItem(offersIndex)
+                  ..go(offersPath);
+                break;
+              default:
+            }
+          },
+        ),
       ),
     );
   }
@@ -105,23 +121,25 @@ class CommonWidget extends StatefulWidget {
   State<CommonWidget> createState() => _CommonWidgetState();
 }
 
-class _CommonWidgetState extends State<CommonWidget> {
+class _CommonWidgetState extends State<CommonWidget> with LoaderMixin {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: [
           Text(
-            context.read<FlowDashboardCubit>().state.label,
+            context.read<FlowDashboardCubit>().state.index.toString(),
           ),
           const SizedBox(height: 16),
           TextButton(
             onPressed: () async {
-              context.showLoader();
+              showLoader();
               await Future.delayed(const Duration(seconds: 3));
 
               if (!mounted) return;
-              context.hideLoader();
+              hideLoader();
+              hideLoader();
+              hideLoader();
             },
             child: const Text('Load...'),
           ),
@@ -131,44 +149,39 @@ class _CommonWidgetState extends State<CommonWidget> {
   }
 }
 
-extension LoaderBuildContextExt on BuildContext {
-  showLoader() => push(loaderPath);
+class NewsWidget extends StatelessWidget {
+  const NewsWidget({super.key});
 
-  hideLoader() {
-    if (canPop() && GoRouter.of(this).location == loaderPath) {
-      pop();
-    }
-  }
-}
-
-class OffersWidget extends StatefulWidget {
-  const OffersWidget({super.key});
-
-  @override
-  State<OffersWidget> createState() => _OffersWidgetState();
-}
-
-class _OffersWidgetState extends State<OffersWidget> {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: [
           Text(
-            context.read<FlowDashboardCubit>().state.label,
+            context.read<FlowDashboardCubit>().state.index.toString(),
           ),
           const SizedBox(height: 16),
           TextButton(
             onPressed: () async {
-              context.showLoader();
-              await Future.delayed(const Duration(seconds: 3));
-
-              if (!mounted) return;
-              context.hideLoader();
-
-              context.push('$offersPath/${Random().nextInt(20)}');
+              showGeneralDialog(
+                context: context,
+                pageBuilder: (innerContext, animation, secondaryAnimation) {
+                  return PopupWidget(
+                    firstAction: () {
+                      context
+                        ..read<FlowDashboardCubit>().onTapItem(homeIndex)
+                        ..go(homePath);
+                    },
+                    secondAction: () {
+                      context
+                        ..read<FlowDashboardCubit>().onTapItem(offersIndex)
+                        ..go('$offersPath/${Random().nextInt(20)}');
+                    },
+                  );
+                },
+              );
             },
-            child: const Text('Load offer...'),
+            child: const Text('Load news...'),
           ),
         ],
       ),
@@ -176,19 +189,44 @@ class _OffersWidgetState extends State<OffersWidget> {
   }
 }
 
-class OfferDetailWidget extends StatelessWidget {
-  final String id;
+class PopupWidget extends StatefulWidget {
+  final void Function() firstAction;
+  final void Function() secondAction;
 
-  const OfferDetailWidget({super.key, required this.id});
+  const PopupWidget({
+    super.key,
+    required this.firstAction,
+    required this.secondAction,
+  });
 
+  @override
+  State<PopupWidget> createState() => _PopupWidgetState();
+}
+
+class _PopupWidgetState extends State<PopupWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 16),
-            Text('Offer id: $id'),
+            const Text('Wow!'),
+            TextButton(
+              onPressed: () {
+                context.pop();
+
+                widget.firstAction();
+              },
+              child: const Text("Go to home!"),
+            ),
+            TextButton(
+              onPressed: () {
+                context.pop();
+
+                widget.secondAction();
+              },
+              child: const Text("Go to offer detail!"),
+            ),
           ],
         ),
       ),

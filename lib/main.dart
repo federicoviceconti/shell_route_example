@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:shell_go_router/stream.dart';
 
@@ -9,7 +10,8 @@ import 'state.dart';
 import 'cubit.dart';
 import 'widgets/flow_dashboard_widget.dart';
 import 'widgets/flow_login_widget.dart';
-import 'widgets/loader_widget.dart';
+import 'widgets/offer/flow_activate_offer_widget.dart';
+import 'widgets/offer/offer_widget.dart';
 
 part 'routes.dart';
 
