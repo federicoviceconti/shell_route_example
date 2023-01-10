@@ -116,7 +116,7 @@ GoRouter _getRouter(BuildContext context) {
 
                             if (stateActivate.email.isEmpty ||
                                 stateActivate.phoneNumber.isEmpty) {
-                              return offerDetailPath;
+                              return offersPath;
                             }
 
                             return null;
