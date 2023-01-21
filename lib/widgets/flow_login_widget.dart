@@ -79,12 +79,14 @@ class _InsertPasswordWidgetState extends State<InsertPasswordWidget> {
             const SizedBox(height: 16),
             TextButton(
               onPressed: () async {
-                context.showLoader();
-                await Future.delayed(const Duration(seconds: 3));
-
                 if (!_key.currentState!.validate()) return;
                 
+                context.showLoader();
+                await Future.delayed(const Duration(seconds: 1));
+                
                 if(!mounted) return;
+
+                context.read<AppCubit>().setLoggedIn(true);
 
                 context.go(homePath);
               },

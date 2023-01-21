@@ -34,7 +34,7 @@ class ShellGoRouterApp extends StatelessWidget {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            routerConfig: _getRouter(context),
+            routerConfig: GoRouterWrapper._get(context),
           );
         }
       ),
